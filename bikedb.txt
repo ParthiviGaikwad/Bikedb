@@ -1,0 +1,72 @@
+MySQL Shell 8.0.26
+
+Copyright (c) 2016, 2021, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect root@localhost
+Creating a session to 'root@localhost'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 23 (X protocol)
+Server version: 8.0.26 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:33060+ ssl  SQL > use Bikedb
+Default schema set to `Bikedb`.
+Fetching table and column names from `bikedb` for auto-completion... Press ^C to stop.
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from bike;
++----+------------+--------+---------+
+| ID | NAME       | STATUS | COMPANY |
++----+------------+--------+---------+
+|  1 | CB500X     | ACTIVE |       1 |
+|  2 | YZF-R6     | ACTIVE |       2 |
+|  3 | YZF-R3     | ACTIVE |       2 |
+|  4 | GSX_R750   | ACTIVE |       3 |
+|  5 | Hayabusa   | ACTIVE |       3 |
+|  6 | CBR1000RR  | ACTIVE |       3 |
+|  7 | GSX-R600   | ACTIVE |       1 |
+|  8 | CBR300R    | ACTIVE |       3 |
+|  9 | Tenere 700 | ACTIVE |       2 |
+| 10 | F 900 R    | ACTIVE |       4 |
++----+------------+--------+---------+
+10 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+--------+-------+---------+
+| ID | NAME   | FOUND | ORIGIN  |
++----+--------+-------+---------+
+|  1 | HONDA  |  1948 | Japan   |
+|  2 | YAMAHA |  1887 | Japan   |
+|  3 | SUZUKI |  1909 | Japan   |
+|  4 | BMW    |  1916 | Germany |
++----+--------+-------+---------+
+4 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select company.ID,bike.Name,company.Name  ,company.Found,company.Origin from bike inner join company on bike.ID=company.ID;
++----+----------+--------+-------+---------+
+| ID | Name     | Name   | Found | Origin  |
++----+----------+--------+-------+---------+
+|  1 | CB500X   | HONDA  |  1948 | Japan   |
+|  2 | YZF-R6   | YAMAHA |  1887 | Japan   |
+|  3 | YZF-R3   | SUZUKI |  1909 | Japan   |
+|  4 | GSX_R750 | BMW    |  1916 | Germany |
++----+----------+--------+-------+---------+
+4 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select*from bike where Status='Active' and company=1;
++----+----------+--------+---------+
+| ID | NAME     | STATUS | COMPANY |
++----+----------+--------+---------+
+|  1 | CB500X   | ACTIVE |       1 |
+|  7 | GSX-R600 | ACTIVE |       1 |
++----+----------+--------+---------+
+2 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company where origin='Japan';
++----+--------+-------+--------+
+| ID | NAME   | FOUND | ORIGIN |
++----+--------+-------+--------+
+|  1 | HONDA  |  1948 | Japan  |
+|  2 | YAMAHA |  1887 | Japan  |
+|  3 | SUZUKI |  1909 | Japan  |
++----+--------+-------+--------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL >
